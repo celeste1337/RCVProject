@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
 
 class Welcome extends Component {
+    constructor() {
+        this.state = {
+            isShow: true,
+        };
+    }
+
     render() {
-        return (
-            <h1>hihihihihihiiiii</h1>
-        )
+        if(this.state.isShow) {
+            return (
+                <h1>boy howdyyysh</h1>
+            )
+        } else return null;
     }
 }
 
