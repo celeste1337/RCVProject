@@ -10,8 +10,8 @@ class VotingComponent extends Component {
             numVotes: 0,
             candidates: [
                 {name:"hello"},
-                {},
-                {},
+                {name: "hi"},
+                {name: "bye!"},
             ],
             currentVotes: [],
         }
@@ -39,7 +39,27 @@ class VotingComponent extends Component {
         // this.state.currentVotes.map((vote, i) => {
         //     console.log(vote)
         // })
-        console.log(this.state)
+        //we dont wanna actually touch the data lol
+        let currentVoteCheck = this.state.currentVotes;
+
+        //grab just the ranks of the candidates
+        let justRanks = currentVoteCheck.map((candidate) => {
+            return candidate.rank;
+        });
+        let rankings = justRanks;
+
+        let countDuplicates = rankings.reduce((candidates, candidate) => {
+            if(candidate in candidates) {
+                candidates[candidate]++
+            } else {
+                candidates[candidate] = 1
+            }
+            return candidates
+        }, {})
+
+
+        let result = countDuplicates;
+        console.log(result)
     }
 
     renderRows(data) {
@@ -55,6 +75,7 @@ class VotingComponent extends Component {
                             <input type="radio" id="third" name={candidate.name} value="3"></input>
                             <input type="radio" id="fourth" name={candidate.name} value="4"></input>
                             <input type="radio" id="fifth" name={candidate.name} value="5"></input>
+                            <input type="radio" id="none" name={candidate.name} value="0" defaultChecked></input>
                         </td>
                     </tr>
             )
