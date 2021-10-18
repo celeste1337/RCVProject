@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 
 class Welcome extends Component {
-    constructor() {
+    constructor(props) {
+        super(props)
         this.state = {
             isShow: true,
         };
