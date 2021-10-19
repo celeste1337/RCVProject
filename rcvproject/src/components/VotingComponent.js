@@ -4,23 +4,34 @@ class VotingComponent extends Component {
     constructor(props) {
         super(props);
 
+
         this.state = {
             language: this.props.language,
             maxVotes: 5,
             numVotes: 0,
             candidates: [
-                {name:"hello"},
-                {name: "hi"},
-                {name: "bye!"},
+                {name:"Eric L. Adams", rank:0},
+                {name: "Maya D. Wiley", rank:0},
+                {name: "Kathryn A. Garcia", rank:0},
+                {name: "Andrew Yang", rank:0},
+                {name: "Scott M. Stringer", rank:0},
+                {name: "Dianne Morales", rank:0},
+                {name: "Raymond J. McGuire", rank:0},
+                {name: "Shaun Donovan", rank:0},
+                {name: "Aaron S. Foldenauer", rank:0},
+                {name: "Art Chang", rank:0},
+                {name: "Paperboy Love Prince", rank:0},
+                {name: "Joycelyn Taylor", rank:0},
+                {name: "Isaac Wright Jr.", rank:0},
             ],
-            currentVotes: [],
+            finalVote: {},
         }
     }
 
     buildVote(e) {
         //builds vote based off input stuff
         let targetVote = {
-            rank: e.target.value,
+            rank: parseInt(e.target.value),
             name: e.target.name
         }
 
@@ -29,47 +40,55 @@ class VotingComponent extends Component {
 
     setVote(n) {
         //this needs to add the targetvote to currentvotes
+        let targetName = n.name;
+
+        let tempCandidates = this.state.candidates;
+        tempCandidates.map((candidate, i) => {
+            if(candidate.name === targetName) {
+                candidate.rank = n.rank
+            } else {
+                return "not equal :/"
+            }
+        });
+
+
+        //grab the candidate name, update rank
+
         this.setState({
-            currentVotes: [...this.state.currentVotes, n]
-          })
+            candidates: tempCandidates
+        })
     }
 
     checkRank() {
         //check the columns to make sure there is one vote per rank
-        // this.state.currentVotes.map((vote, i) => {
-        //     console.log(vote)
-        // })
         //we dont wanna actually touch the data lol
-        let currentVoteCheck = this.state.currentVotes;
+        let currentVoteCheck = this.state.candidates;
 
-        //grab just the ranks of the candidates
-        let justRanks = currentVoteCheck.map((candidate) => {
-            return candidate.rank;
-        });
-        let rankings = justRanks;
+        //grab the ranks, throw em in a temp array
+        let newArr = currentVoteCheck.map((candidate) => candidate.rank);
 
-        let countDuplicates = rankings.reduce((candidates, candidate) => {
-            if(candidate in candidates) {
-                candidates[candidate]++
-            } else {
-                candidates[candidate] = 1
-            }
-            return candidates
-        }, {})
+        //get rid of the 0s so the set doesnt count those as dupes
+        newArr = newArr.filter(rank => rank > 0)
 
-
-        let result = countDuplicates;
-        console.log(result)
+        //make a set of the temp array
+        let tempSet = new Set(newArr);
+        
+        if(tempSet.size < newArr.length) {
+            //there are duplicates!!!
+            console.log("THESE PEOPLE HAVE DUPLICATE VOTES!!!!!")
+        } else {
+            //BRING UP THE CONFIRMATION PAGE!!!
+        }
     }
 
     renderRows(data) {
         this.buildVote = this.buildVote.bind(this);
 
-        return data.map((candidate, index) => {
+        return data.map((candidate) => {
             return (
                     <tr key={candidate.id} >
                         <td>{candidate.name}</td>
-                        <td onChange={this.buildVote}>
+                        <td class="voter" onChange={this.buildVote}>
                             <input type="radio" id="first" name={candidate.name} value="1"></input>
                             <input type="radio" id="second" name={candidate.name} value="2"></input>
                             <input type="radio" id="third" name={candidate.name} value="3"></input>
@@ -88,10 +107,14 @@ class VotingComponent extends Component {
 
         return (
             <div>
+                <div class="warning">
+                    <p>You have duplicate votes. Please change your vote to have one candidate per rank.</p>
+                </div>
                 <table>
                     <thead>
                         <tr>
-                            <th>Candidate</th><th>Vote</th>
+                            <th>Candidate</th>
+                            <th>Rank</th>
                         </tr>
                     </thead>
                     <tbody>
