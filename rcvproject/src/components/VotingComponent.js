@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ConfirmationComponent from './ConfirmationComponent';
 
 class VotingComponent extends Component {
     constructor(props) {
@@ -63,6 +64,7 @@ class VotingComponent extends Component {
         //check the columns to make sure there is one vote per rank
         //we dont wanna actually touch the data lol
         let currentVoteCheck = this.state.candidates;
+        let correctVotes;
 
         //grab the ranks, throw em in a temp array
         let newArr = currentVoteCheck.map((candidate) => candidate.rank);
@@ -78,7 +80,15 @@ class VotingComponent extends Component {
             console.log("THESE PEOPLE HAVE DUPLICATE VOTES!!!!!")
         } else {
             //BRING UP THE CONFIRMATION PAGE!!!
+            this.setState({
+                finalVote: currentVoteCheck.filter((candidate) => candidate.rank > 0)
+            }, () => {
+                //make sure it fr updated lol
+                //console.log(this.state.finalVote);
+            })
+            
         }
+
     }
 
     renderRows(data) {
@@ -104,6 +114,12 @@ class VotingComponent extends Component {
     render() {
         //onclick or whateva will call changevote
         this.checkRank = this.checkRank.bind(this);
+        let confirmationPop;
+        //check if empty
+        if(Object.keys(this.state.finalVote).length !== 0) {
+            //empty
+            confirmationPop = <ConfirmationComponent dataFromParent={this.state.finalVote}/>
+        }
 
         return (
             <div>
@@ -130,6 +146,7 @@ class VotingComponent extends Component {
                 <button onClick={this.checkRank}>
                     Submit
                 </button>
+                {confirmationPop}
             </div>
         );
     }
