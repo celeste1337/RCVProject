@@ -84,7 +84,7 @@ class VotingComponent extends Component {
                 finalVote: currentVoteCheck.filter((candidate) => candidate.rank > 0)
             }, () => {
                 //make sure it fr updated lol
-                //console.log(this.state.finalVote);
+                console.log(this.state.finalVote);
             })
             
         }
