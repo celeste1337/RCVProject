@@ -26,6 +26,9 @@ class VotingComponent extends Component {
                 {name: "Isaac Wright Jr.", rank:0},
             ],
             finalVote: {},
+            isHiddenWarning: true,
+            warningMsg: "You have duplicate votes. Please change your vote to have one candidate per rank.",
+            
         }
     }
 
@@ -63,7 +66,6 @@ class VotingComponent extends Component {
         //check the columns to make sure there is one vote per rank
         //we dont wanna actually touch the data lol
         let currentVoteCheck = this.state.candidates;
-        let correctVotes;
 
         //grab the ranks, throw em in a temp array
         let newArr = currentVoteCheck.map((candidate) => candidate.rank);
@@ -77,10 +79,17 @@ class VotingComponent extends Component {
         if(tempSet.size < newArr.length) {
             //there are duplicates!!!
             console.log("THESE PEOPLE HAVE DUPLICATE VOTES!!!!!")
+            this.setState((prevState) => {
+                return {
+                    isHiddenWarning: !prevState.isHiddenWarning
+                }
+            })
+
         } else {
             //BRING UP THE CONFIRMATION PAGE!!!
             this.setState({
-                finalVote: currentVoteCheck.filter((candidate) => candidate.rank > 0)
+                finalVote: currentVoteCheck.filter((candidate) => candidate.rank > 0),
+                isHiddenWarning: true
             }, () => {
                 //make sure it fr updated lol
                 //console.log(this.state.finalVote);
@@ -95,15 +104,15 @@ class VotingComponent extends Component {
 
         return data.map((candidate) => {
             return (
-                    <tr key={candidate.id} >
+                    <tr className="candidateRow" key={candidate.id} >
                         <td>{candidate.name}</td>
-                        <td class="voter" onChange={this.buildVote}>
-                            <input type="radio" id="first" name={candidate.name} value="1"></input>
-                            <input type="radio" id="second" name={candidate.name} value="2"></input>
-                            <input type="radio" id="third" name={candidate.name} value="3"></input>
-                            <input type="radio" id="fourth" name={candidate.name} value="4"></input>
-                            <input type="radio" id="fifth" name={candidate.name} value="5"></input>
-                            <input type="radio" id="none" name={candidate.name} value="0" defaultChecked></input>
+                        <td onChange={this.buildVote}>
+                            <input className="radioSelect" type="radio" id="first" name={candidate.name} value="1"></input>
+                            <input className="radioSelect" type="radio" id="second" name={candidate.name} value="2"></input>
+                            <input className="radioSelect" type="radio" id="third" name={candidate.name} value="3"></input>
+                            <input className="radioSelect" type="radio" id="fourth" name={candidate.name} value="4"></input>
+                            <input className="radioSelect" type="radio" id="fifth" name={candidate.name} value="5"></input>
+                            <input className="radioSelect" type="radio" id="none" name={candidate.name} value="0" defaultChecked></input>
                         </td>
                     </tr>
             )
@@ -122,11 +131,11 @@ class VotingComponent extends Component {
 
         return (
             <div>
-                <div class="warning">
-                    <p>You have duplicate votes. Please change your vote to have one candidate per rank.</p>
+                <div>
+                    { this.state.isHiddenWarning ? null : <p  className="warning">{this.state.warningMsg}</p>}
                 </div>
-                <table>
-                    <thead>
+                <table className="VotingComponent">
+                    <thead classname="tableHeading">
                         <tr>
                             <th>Candidate</th>
                             <th>Rank</th>
@@ -142,7 +151,7 @@ class VotingComponent extends Component {
                         </tr>
                     </tbody>
                 </table>
-                <button onClick={this.checkRank}>
+                <button className="submitButton" onClick={this.checkRank}>
                     Submit
                 </button>
                 {confirmationPop}

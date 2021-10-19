@@ -9,7 +9,7 @@ class ConfirmationComponent extends Component {
     renderRows(data) {
         return data.map((candidate) => {
             return (
-                <tr key={candidate.id}>
+                <tr className="candidateRow confirmationRow" key={candidate.id}>
                     <td>{candidate.name}</td>
                     <td>{candidate.rank}</td>
                 </tr>
@@ -19,11 +19,11 @@ class ConfirmationComponent extends Component {
 
     render() {
         return (
-            <div>
+            <div className="ConfirmationComponent">
                 <table>
                     <thead>
                         <tr>
-                            <td>Your ballot</td>
+                            <td className="heading">Your ballot</td>
                         </tr>
                     </thead>
                     <tbody>

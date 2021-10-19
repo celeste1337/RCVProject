@@ -1,38 +1,30 @@
-.App {
-  text-align: center;
+html, body, #app, #app>div {
+  height: 100%
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.VotingComponent {
+  border: 1px solid red;
+  width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.VotingComponent th {
+  border: 1px solid blue;
+  text-align: left;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.warning {
+  padding: calc(1%);
+  border: 1px solid red;
+  border-radius: 3px;
+  background-color: lightcoral;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.ConfirmationComponent {
+  --containerWidth: 100%;
+  background-color: aliceblue;
+  position: absolute;
+  left: calc(100% - (var(--containerWidth)/2) - 75px);
+  z-index: 10;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
