@@ -3,12 +3,8 @@ import React, { Component } from 'react'
 class ConfirmationComponent extends Component {
     constructor(props) {
         super(props);
-        
-        this.state = {
-            ballot: this.props.dataFromParent
-        }
-        console.log(this.props.dataFromParent);
     }
+
 
     renderRows(data) {
         return data.map((candidate) => {
@@ -31,7 +27,7 @@ class ConfirmationComponent extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.renderRows(this.state.ballot)}
+                        {this.renderRows(this.props.dataFromParent)}
                     </tbody>
                 </table>
             </div>

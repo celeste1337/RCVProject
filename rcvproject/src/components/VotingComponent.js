@@ -54,7 +54,6 @@ class VotingComponent extends Component {
 
 
         //grab the candidate name, update rank
-
         this.setState({
             candidates: tempCandidates
         })
@@ -84,7 +83,7 @@ class VotingComponent extends Component {
                 finalVote: currentVoteCheck.filter((candidate) => candidate.rank > 0)
             }, () => {
                 //make sure it fr updated lol
-                console.log(this.state.finalVote);
+                //console.log(this.state.finalVote);
             })
             
         }
@@ -116,9 +115,9 @@ class VotingComponent extends Component {
         this.checkRank = this.checkRank.bind(this);
         let confirmationPop;
         //check if empty
-        if(Object.keys(this.state.finalVote).length !== 0) {
+        if(Object.keys(this.state.finalVote).length > 0) {
             //empty
-            confirmationPop = <ConfirmationComponent dataFromParent={this.state.finalVote}/>
+            confirmationPop = <ConfirmationComponent dataFromParent= {this.state.finalVote}/>
         }
 
         return (
