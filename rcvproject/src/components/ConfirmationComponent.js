@@ -1,11 +1,6 @@
 import React, { Component } from 'react'
 
 class ConfirmationComponent extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-
     renderRows(data) {
         return data.map((candidate) => {
             return (
@@ -18,20 +13,21 @@ class ConfirmationComponent extends Component {
     }
 
     render() {
-        return (
-            <div className="ConfirmationComponent">
-                <table>
-                    <thead>
-                        <tr>
-                            <td className="heading">Your ballot</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderRows(this.props.dataFromParent)}
-                    </tbody>
-                </table>
-            </div>
-        )
+            return (
+                <div className="ConfirmationComponent">
+                    <button onClick={this.props.hideConfirmation}>Close</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td className="heading">Your ballot</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.renderRows(this.props.dataFromParent)}
+                        </tbody>
+                    </table>
+                </div>
+            )
     }
 }
 

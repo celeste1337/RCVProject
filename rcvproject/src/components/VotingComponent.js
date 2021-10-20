@@ -5,7 +5,6 @@ class VotingComponent extends Component {
     constructor(props) {
         super(props);
 
-
         this.state = {
             language: this.props.language,
             maxVotes: 5,
@@ -28,8 +27,18 @@ class VotingComponent extends Component {
             finalVote: {},
             isHiddenWarning: true,
             warningMsg: "You have duplicate votes. Please change your vote to have one candidate per rank.",
-            
+            isHiddenConfirmation: true,
         }
+    }
+
+    changeHidden() {
+        this.setState((prevState) => {
+            return {
+                isHiddenConfirmation: !prevState.isHiddenConfirmation
+            }
+        }, () => {
+            //console.log(this.state.isHiddenConfirmation);
+        })
     }
 
     buildVote(e) {
@@ -55,10 +64,19 @@ class VotingComponent extends Component {
             }
         });
 
+        //calc numvotes lol
+        tempCandidates.map((candidate, i) => {
+            if(candidate.rank > 0) {
+                this.setState({
+                    numVotes: this.state.numVotes + 1
+                });
+            }
+        })
+
 
         //grab the candidate name, update rank
         this.setState({
-            candidates: tempCandidates
+            candidates: tempCandidates,
         })
     }
 
@@ -89,7 +107,8 @@ class VotingComponent extends Component {
             //BRING UP THE CONFIRMATION PAGE!!!
             this.setState({
                 finalVote: currentVoteCheck.filter((candidate) => candidate.rank > 0),
-                isHiddenWarning: true
+                isHiddenWarning: true,
+                numVotes: 0
             }, () => {
                 //make sure it fr updated lol
                 //console.log(this.state.finalVote);
@@ -122,11 +141,12 @@ class VotingComponent extends Component {
     render() {
         //onclick or whateva will call changevote
         this.checkRank = this.checkRank.bind(this);
+        this.changeHidden = this.changeHidden.bind(this);
         let confirmationPop;
         //check if empty
         if(Object.keys(this.state.finalVote).length > 0) {
             //empty
-            confirmationPop = <ConfirmationComponent dataFromParent= {this.state.finalVote}/>
+            confirmationPop = <ConfirmationComponent dataFromParent= {this.state.finalVote} hideConfirmation={this.changeHidden} isHidden={this.state.isHiddenConfirmation}/>
         }
 
         return (
@@ -151,10 +171,14 @@ class VotingComponent extends Component {
                         </tr>
                     </tbody>
                 </table>
+                <span style={{
+                    color: this.state.numVotes > 5 ? 'red' : 'black'
+                }}>{this.state.numVotes} / {this.state.maxVotes}</span>
                 <button className="submitButton" onClick={this.checkRank}>
                     Submit
                 </button>
                 {confirmationPop}
+                
             </div>
         );
     }
