@@ -27,17 +27,19 @@ class VotingComponent extends Component {
             finalVote: {},
             isHiddenWarning: true,
             warningMsg: "You have duplicate votes. Please change your vote to have one candidate per rank.",
-            isHiddenConfirmation: true,
+            openConfirmation: false,
         }
     }
 
-    changeHidden() {
+    toggleConfirmation() {
+        console.log("confirmation hidden hehe");
+        console.log(this.state.openConfirmation);
         this.setState((prevState) => {
             return {
-                isHiddenConfirmation: !prevState.isHiddenConfirmation
+                openConfirmation: !prevState.openConfirmation
             }
         }, () => {
-            //console.log(this.state.isHiddenConfirmation);
+            console.log(this.state.openConfirmation);
         })
     }
 
@@ -108,12 +110,13 @@ class VotingComponent extends Component {
             this.setState({
                 finalVote: currentVoteCheck.filter((candidate) => candidate.rank > 0),
                 isHiddenWarning: true,
-                numVotes: 0
+                numVotes: 0,
             }, () => {
                 //make sure it fr updated lol
                 //console.log(this.state.finalVote);
             })
-            
+            //show the confirmation :p
+            this.toggleConfirmation();
         }
 
     }
@@ -139,14 +142,14 @@ class VotingComponent extends Component {
     }
 
     render() {
-        //onclick or whateva will call changevote
         this.checkRank = this.checkRank.bind(this);
-        this.changeHidden = this.changeHidden.bind(this);
+        this.toggleConfirmation = this.toggleConfirmation.bind(this);
+
         let confirmationPop;
         //check if empty
         if(Object.keys(this.state.finalVote).length > 0) {
             //empty
-            confirmationPop = <ConfirmationComponent dataFromParent= {this.state.finalVote} hideConfirmation={this.changeHidden} isHidden={this.state.isHiddenConfirmation}/>
+            confirmationPop = <ConfirmationComponent dataFromParent= {this.state.finalVote} open={this.state.openConfirmation} toggleConfirmation={this.toggleConfirmation}/>
         }
 
         return (

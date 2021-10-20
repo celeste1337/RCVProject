@@ -13,13 +13,14 @@ class ConfirmationComponent extends Component {
     }
 
     render() {
+        console.log(this.props)
             return (
-                <div className="ConfirmationComponent">
-                    <button onClick={this.props.hideConfirmation}>Close</button>
+                <div style={{visibility: this.props.open ? 'visible' : 'hidden'}} className="ConfirmationComponent">
+                    <button onClick={this.props.toggleConfirmation}>Close</button>
                     <table>
                         <thead>
                             <tr>
-                                <td className="heading">Your ballot</td>
+                                <td className="heading">Your ballot summary</td>
                             </tr>
                         </thead>
                         <tbody>
