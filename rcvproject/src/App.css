@@ -22,7 +22,6 @@ html, body, #app, #app>div {
   width: 75px;
   height: 75px;
   margin: 5px 0 5px calc((100%/2) - 75px/2);
-  cursor: pointer;
 }
 
 .VotingComponent {
@@ -61,7 +60,7 @@ button {
 
 .submitArea {
   width: 20%;
-  margin: 0 0 0 85%;
+  margin: 0 0 0 80%;
   padding: 1% 0;
 }
 
