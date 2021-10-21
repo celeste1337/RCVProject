@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 
 class Welcome extends Component {
     constructor(props) {
@@ -11,7 +12,10 @@ class Welcome extends Component {
     render() {
         if(this.state.isShow) {
             return (
-                <h1>boy howdyyysh</h1>
+                <div className="welcome">
+                    <h1>Hello Citizen!</h1>
+                    <Link to="/vote">PLEASE ENTER YOUR AUTHENTICATION CARD</Link>
+                </div>
             )
         } else return null;
     }

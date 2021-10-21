@@ -2,6 +2,7 @@ import './App.css';
 import Welcome from './components/Welcome'
 import VotingComponent from './components/VotingComponent';
 import logo from './assets/logo.png'
+import Main from './components/Main';
 
 //put all components inside the App div
 function App() {
@@ -14,7 +15,7 @@ function App() {
       <span class="navLink">Help</span>
     </div>
     <img class="logo" src={logo}/>
-    <VotingComponent></VotingComponent>
+    <Main/>
 
 
     </div>
