@@ -128,13 +128,36 @@ class VotingComponent extends Component {
             return (
                     <tr className="candidateRow" key={candidate.id} >
                         <td>{candidate.name}</td>
-                        <td onChange={this.buildVote}>
-                            <input className="radioSelect" type="radio" id="first" name={candidate.name} value="1"></input>
-                            <input className="radioSelect" type="radio" id="second" name={candidate.name} value="2"></input>
-                            <input className="radioSelect" type="radio" id="third" name={candidate.name} value="3"></input>
-                            <input className="radioSelect" type="radio" id="fourth" name={candidate.name} value="4"></input>
-                            <input className="radioSelect" type="radio" id="fifth" name={candidate.name} value="5"></input>
-                            <input className="radioSelect" type="radio" id="none" name={candidate.name} value="0" defaultChecked></input>
+                        <td className="votingRadios" onChange={this.buildVote}>
+                            <div class="radioRow">
+                                <input className="radioSelect" type="radio" id="first" name={candidate.name} value="1"></input>
+                                <label for="first">1</label>
+                            </div>
+
+                            <div class="radioRow">
+                                <input className="radioSelect" type="radio" id="second" name={candidate.name} value="2"></input>
+                                <label for="second">2</label>
+                            </div>
+
+                            <div class="radioRow">
+                                <input className="radioSelect" type="radio" id="third" name={candidate.name} value="3"></input>
+                                <label for="third">3</label>
+                            </div>
+
+                            <div class="radioRow">
+                                <input className="radioSelect" type="radio" id="fourth" name={candidate.name} value="4"></input>
+                                <label for="fourth">4</label>
+                            </div>
+
+                            <div class="radioRow">
+                                <input className="radioSelect" type="radio" id="fifth" name={candidate.name} value="5"></input>
+                                <label for="fifth">5</label>
+                            </div>
+
+                            <div class="radioRow">
+                                <input className="radioSelect" type="radio" id="none" name={candidate.name} value="0" defaultChecked></input>
+                                <label for="none">No vote</label>
+                            </div>
                         </td>
                     </tr>
             )
@@ -153,20 +176,20 @@ class VotingComponent extends Component {
         }
 
         return (
-            <div>
+            <div className="VotingComponent">
                 <div>
                     { this.state.isHiddenWarning ? null : <p  className="warning">{this.state.warningMsg}</p>}
                 </div>
-                <table className="VotingComponent">
-                    <thead classname="tableHeading">
+                <table style={{filter: this.state.openConfirmation ? 'blur(1.5px)' : 'blur(0)'}}>
+                    <thead className="tableHeading">
                         <tr>
                             <th>Candidate</th>
-                            <th>Rank</th>
+                            <th>Ranking</th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.renderRows(this.state.candidates)}
-                        <tr>
+                        <tr className="writeIns">
                             <td>Write Ins</td>
                             <td>
                                 <input type="text"></input>
@@ -174,12 +197,14 @@ class VotingComponent extends Component {
                         </tr>
                     </tbody>
                 </table>
-                <span style={{
-                    color: this.state.numVotes > 5 ? 'red' : 'black'
-                }}>{this.state.numVotes} / {this.state.maxVotes}</span>
-                <button className="submitButton" onClick={this.checkRank}>
-                    Submit
-                </button>
+                <div className="submitArea">
+                    <span style={{
+                        color: this.state.numVotes > 5 ? 'red' : '#020752'
+                    }}>{this.state.numVotes} / {this.state.maxVotes}</span>
+                    <button className="submitButton" onClick={this.checkRank}>
+                        Submit
+                    </button>
+                </div>
                 {confirmationPop}
                 
             </div>

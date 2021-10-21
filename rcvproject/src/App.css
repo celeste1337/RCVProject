@@ -1,15 +1,42 @@
 html, body, #app, #app>div {
-  height: 100%
+  height: 100%;
+  background: #2632C9D9;
+  background-image: url('./assets/AuthentificationPortait3.png');
+  color: white;
+}
+
+#navBar {
+  background-color: #DADCEF;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#navBar span {
+  margin: 0 3%;
+  padding: 0.5% 0;
+  color: #020752;
+}
+
+.logo {
+  width: 75px;
+  height: 75px;
+  margin: 5px 0 5px calc((100%/2) - 75px/2);
 }
 
 .VotingComponent {
-  border: 1px solid red;
+  margin: 0 15%;
+  background-color: #E5E5E5;
+  border-radius: 3px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.VotingComponent table {
   width: 100%;
 }
 
 .VotingComponent th {
-  border: 1px solid blue;
   text-align: left;
+  color: #020752;
 }
 
 .warning {
@@ -28,3 +55,48 @@ html, body, #app, #app>div {
   z-index: 10;
 }
 
+button {
+  border-radius: 3px;
+  border: none;
+  padding: 5px;
+}
+
+.radioSelect {
+  margin: 0 5%;
+}
+
+.submitArea {
+  width: 20%;
+  margin: 0 0 0 85%;
+  padding: 1% 0;
+}
+
+.submitArea span {
+  padding: 0 5px;
+}
+
+.submitArea button {
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+td {
+  padding: 1% 5px;
+  color: #020752;
+}
+
+tr:nth-child(even) {background: #DADCEF}
+tr:nth-child(odd) {background: #F8F8F8}
+
+.votingRadios {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.votingRadios .radioRow {
+  width: 100%;
+}
+
+.writeIns input {
+  width: 90%;
+}
